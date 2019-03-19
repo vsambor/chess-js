@@ -1,0 +1,26 @@
+{
+  "name": "chess",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vsambor/chess-js.git"
+  },
+  "keywords": [
+    "chess",
+    "js"
+  ],
+  "author": "vasile sambor",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vsambor/chess-js/issues"
+  },
+  "homepage": "https://github.com/vsambor/chess-js#readme",
+  "dependencies": {
+    "chessground": "^7.3.2"
+  }
+}

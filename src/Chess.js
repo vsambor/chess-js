@@ -2,9 +2,11 @@ const Board = require('./Board');
 
 class Chess {
   constructor() {
-    console.log('Chess game creation');
     const board = new Board();
     board.print();
+    console.log('color = ', board.getColorByCoordinate('a0')); // Dark
+    console.log('color = ', board.getColorByCoordinate('d7')); // Dark
+    console.log('color = ', board.getColorByCoordinate('d0')); // Light
   }
 }
 
