@@ -1,23 +1,13 @@
 const Square = require('./Square');
-const consts = require('./constants');
+const { BOARD, SQUARE_COLOR } = require('./constants');
 
 class Board { 
-  constructor() {
-    this.size = 8;
+  constructor(container) {
+    this.container = container;
+    this.size = BOARD.SIZE;
+    this.coordonates = BOARD.COORDINATES;
     this.squares = [];
-    this.coordonates = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
-
     this.__createSquares();
-  }
-
-  /**
-   * Gets the square color from specific row and column position.
-   * 
-   * @param {Number} row - the row position (starting from 0).
-   * @param {Number} column - the column position (starting from 0).
-   */
-  getColorByPosition(row, column) {
-    return (row + column) % 2 === 0 ? consts.LIGHT : consts.DARK;
   }
 
   /**
@@ -35,14 +25,14 @@ class Board {
       throw 'The row should be in interval 0-7';
     }
 
-    return this.getColorByPosition(row, col);
+    // return this.getColorByPosition(row, col);
   }
 
   __createSquares() {
     for(let row = 0; row < this.size; ++row) {
       this.squares[row] = [];
       for(let column = 0; column < this.size; ++column) {
-        this.squares[row][column] = new Square(this.getColorByPosition(row, column));
+        this.squares[row][column] = new Square(row, column);
       }
     }
   }
@@ -53,14 +43,14 @@ class Board {
       return col;
     } 
 
-    throw 'the provided letter is not a chess coordinate. Please use letters from a to h';
+    throw 'The provided letter is not a chess coordinate. Please use letters between a and h';
   }
 
   print() {
     let bordString = '';
     for(let row = 0; row < this.size; ++row) {
       for(let column = 0; column < this.size; ++column) {
-        bordString += this.getColorByPosition(row, column) === consts.LIGHT ? '\u2592': '\u2591';
+        bordString += this.getColorByPosition(row, column) === SQUARE_COLOR.LIGHT ? '\u2592': '\u2591';
       }
       bordString += '\n';
     }

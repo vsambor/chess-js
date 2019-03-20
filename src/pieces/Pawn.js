@@ -1,8 +1,9 @@
 const Piece = require('../Piece');
+const { PIECE_TYPE } = require('../constants');
 
 class Pawn extends Piece {
-  constructor() {
-    super();
+  constructor(color) {
+    super(color, PIECE_TYPE.PAWN);
     console.log('Pawn creation');
   }
 }
