@@ -20,7 +20,11 @@
 <script type="module">
   import Board from './src/Board.js';
 
-  const board = new Board('container');
+  const cfg = {
+    showCoordinates: true
+  }
+
+  const board = new Board('container', cfg);
   board.draw();
 </script>
 </html>

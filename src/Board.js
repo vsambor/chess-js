@@ -2,7 +2,8 @@ import Square from './Square.js';
 import { BOARD, SQUARE_COLOR } from './constants.js';
 
 export default class Board { 
-  constructor(container) {
+  constructor(container, config) {
+    this.config = config;
     this.container = document.getElementById(container);
     this.pxSize = this.container.offsetWidth;
     this.size = BOARD.SIZE;
@@ -69,6 +70,25 @@ export default class Board {
     return el;
   }
 
+  __createLettersCoordinates() {
+    const lettersEl = document.createElement('div');
+    lettersEl.innerHTML = 'abcdefgh';
+    lettersEl.style.letterSpacing = `${(this.pxSize / this.size)-7}px`;
+    lettersEl.style.marginLeft = '3px';
+
+    return lettersEl;
+  }
+
+  __createNumbersCoordinates() {
+    const numbersEl = document.createElement('div');
+    numbersEl.innerHTML = '12345678';
+    numbersEl.style.letterSpacing = `${(this.pxSize / this.size)-7}px`;
+    numbersEl.style.writingMode = 'tb';
+    numbersEl.style.textOrientation = 'upright'
+
+    return numbersEl;
+  }
+
   __getColumnByCoordinate(coord) {
     const col = this.coordonates.findIndex(c => c === coord);
     if(col > -1) {
@@ -79,12 +99,25 @@ export default class Board {
   }
 
   draw() {
+    // Appends squares to the board element.
     for(let row = 0; row < this.size; ++row) {
       for(let column = 0; column < this.size; ++column) {
         this.$el.appendChild(this.squares[row][column].$el);
       }
     }
-    this.container.appendChild(this.$el);
+
+    const wrapper = document.createElement('div');
+
+    wrapper.appendChild(this.$el);
+
+    // Appends coordinates if needed.
+    // TODO
+    if(this.config.showCoordinates) {
+      //wrapper.appendChild(this.__createNumbersCoordinates());
+      wrapper.appendChild(this.__createLettersCoordinates());
+    }
+
+    this.container.appendChild(wrapper);
   }
 
   print() {
