@@ -1,13 +1,14 @@
-const Square = require('./Square');
-const { BOARD, SQUARE_COLOR } = require('./constants');
+import Square from './Square.js';
+import { BOARD, SQUARE_COLOR } from './constants.js';
 
-class Board { 
+export default class Board { 
   constructor(container) {
-    this.container = container;
+    this.container = document.getElementById(container);
+    this.pxSize = this.container.offsetWidth;
     this.size = BOARD.SIZE;
     this.coordonates = BOARD.COORDINATES;
-    this.squares = [];
-    this.__createSquares();
+    this.squares = this.__createSquares();
+    this.$el = this.__createElement();
   }
 
   /**
@@ -16,9 +17,8 @@ class Board {
    * @param {String} coordinate - any board coordonate a-h followed by row number from 0-7
    */
   getColorByCoordinate(coordinate) {
-    const splittedCoords = coordinate.split('');
-    const letter = splittedCoords[0];
-    const row = (this.size - 1) - Number(splittedCoords[1])
+    let [letter, row] = coordinate.split('');
+    const row = (this.size - 1) - Number(row)
     const col = this.__getColumnByCoordinate(letter);
 
     if (row >= this.size) {
@@ -28,13 +28,45 @@ class Board {
     // return this.getColorByPosition(row, col);
   }
 
+  /**
+   * Calculates the square color for specific x, y position.
+   * 
+   * @param {Number} row - the row position (starting from 0).
+   * @param {Number} column - the column position (starting from 0).
+   * 
+   * @returns {String} - SQUARE_COLOR
+   */
+  getColor(row, column) {
+    return (row + column) % 2 === 0 ? SQUARE_COLOR.LIGHT : SQUARE_COLOR.DARK;
+  }
+
   __createSquares() {
+    const squares = [];
     for(let row = 0; row < this.size; ++row) {
-      this.squares[row] = [];
+      squares[row] = [];
       for(let column = 0; column < this.size; ++column) {
-        this.squares[row][column] = new Square(row, column);
+        squares[row][column] = new Square({
+          row: row,
+          column: column,
+          color: this.getColor(row, column),
+          size: this.pxSize / this.size
+        });
       }
     }
+    return squares;
+  }
+
+  __createElement() {
+    const el = document.createElement('div');
+    el.className = 'board';
+    el.style.width = `${this.pxSize}px`;
+    el.style.height = `${this.pxSize}px`;
+    el.style.display = 'grid';
+    el.style.margin = '0 auto';
+    el.style.border = 'solid 1px';
+    el.style.gridTemplateColumns = 'repeat(8, 1fr)';
+
+    return el;
   }
 
   __getColumnByCoordinate(coord) {
@@ -46,11 +78,20 @@ class Board {
     throw 'The provided letter is not a chess coordinate. Please use letters between a and h';
   }
 
+  draw() {
+    for(let row = 0; row < this.size; ++row) {
+      for(let column = 0; column < this.size; ++column) {
+        this.$el.appendChild(this.squares[row][column].$el);
+      }
+    }
+    this.container.appendChild(this.$el);
+  }
+
   print() {
     let bordString = '';
     for(let row = 0; row < this.size; ++row) {
       for(let column = 0; column < this.size; ++column) {
-        bordString += this.getColorByPosition(row, column) === SQUARE_COLOR.LIGHT ? '\u2592': '\u2591';
+        bordString += this.squares[row][column].color === SQUARE_COLOR.LIGHT ? '\u2592 ': '\u2591 ';
       }
       bordString += '\n';
     }
@@ -58,5 +99,3 @@ class Board {
     console.log(bordString);
   }
 }
-
-module.exports = Board;

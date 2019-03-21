@@ -1,28 +1,28 @@
-const { SQUARE_COLOR } = require('./constants');
+import { SQUARE_COLOR } from './constants.js';
 
-class Square {
-  constructor(row, column) {
-    this.color = this.getColorByPosition(row, column);
+export default class Square {
+  constructor({ row, column, color, size }) {
+    this.color = color;
     this.row = row;
     this.column = column;
+    this.size = size;
     this.piece = null;
+    this.$el = this.__createElement();
   }
 
   setPiece(piece) {
     this.piece = piece;
   }
 
-  /**
-   * Gets the square color from specific row and column position.
-   * 
-   * @param {Number} row - the row position (starting from 0).
-   * @param {Number} column - the column position (starting from 0).
-   * 
-   * @returns {String} - SQUARE_COLOR
-   */
-  getColorByPosition(row, column) {
-    return (row + column) % 2 === 0 ? SQUARE_COLOR.LIGHT : SQUARE_COLOR.DARK;
+  __createElement() {
+    const el = document.createElement('div');
+    el.className = 'square';
+    el.style.justifyContent = 'center';
+    el.style.alignItems = 'center';
+    el.style.display = 'flex';
+    el.style.fontSize = '5em';
+    el.style.backgroundColor = this.color === SQUARE_COLOR.LIGHT ? 'white' : 'grey';
+
+    return el;
   }
 }
-
-module.exports = Square;

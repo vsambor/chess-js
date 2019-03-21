@@ -20,7 +20,5 @@
     "url": "https://github.com/vsambor/chess-js/issues"
   },
   "homepage": "https://github.com/vsambor/chess-js#readme",
-  "dependencies": {
-    "chessground": "^7.3.2"
-  }
+  "dependencies": {}
 }
