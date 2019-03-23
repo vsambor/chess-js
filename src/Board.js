@@ -1,4 +1,6 @@
 import Square from './Square.js';
+import Position from './Position.js';
+import Pawn from './pieces/Pawn.js';
 import { BOARD, SQUARE_COLOR } from './constants.js';
 
 export default class Board { 
@@ -10,6 +12,13 @@ export default class Board {
     this.coordonates = BOARD.COORDINATES;
     this.squares = this.__createSquares();
     this.$el = this.__createElement();
+    // this.position = new Position(config.position);
+    this.squares[0][0].$el.appendChild(new Pawn('white').$el);
+  }
+
+  // Flips the board with all pieces on it...
+  flip() {
+    return true;
   }
 
   /**
