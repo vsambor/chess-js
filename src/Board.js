@@ -1,7 +1,7 @@
 import Square from './Square.js';
 import Position from './Position.js';
-import Pawn from './pieces/Pawn.js';
-import { BOARD, SQUARE_COLOR } from './constants.js';
+import { BOARD, SQUARE_COLOR, PIECE_COLOR } from './constants.js';
+import PieceFactory from './PieceFactory.js';
 
 export default class Board { 
   constructor(container, config) {
@@ -9,16 +9,28 @@ export default class Board {
     this.container = document.getElementById(container);
     this.pxSize = this.container.offsetWidth;
     this.size = BOARD.SIZE;
-    this.coordonates = BOARD.COORDINATES;
+    this.coordinates = BOARD.COORDINATES;
     this.squares = this.__createSquares();
     this.$el = this.__createElement();
-    // this.position = new Position(config.position);
-    this.squares[0][0].$el.appendChild(new Pawn('white').$el);
+    this.applyPossition(config.position);
   }
 
   // Flips the board with all pieces on it...
   flip() {
     return true;
+  }
+
+  applyPossition(position) {
+    this.position = new Position(position).position;
+
+    for(const pieceName in this.position) {
+      this.position[pieceName].forEach(coord => {
+        let [col, row] = coord.split('')
+        row = (this.size - 1) - Number(row)
+        col = this.__getColumnByCoordinate(col);
+        this.squares[row][col].setPiece(new PieceFactory().createPiece(pieceName));
+      })
+    }    
   }
 
   /**
@@ -81,7 +93,7 @@ export default class Board {
 
   __createLettersCoordinates() {
     const lettersEl = document.createElement('div');
-    lettersEl.innerHTML = 'abcdefgh';
+    lettersEl.innerHTML = Object.keys(BOARD.COORDINATES).join('');
     lettersEl.style.letterSpacing = `${(this.pxSize / this.size)-7}px`;
     lettersEl.style.marginLeft = '3px';
 
@@ -99,12 +111,10 @@ export default class Board {
   }
 
   __getColumnByCoordinate(coord) {
-    const col = this.coordonates.findIndex(c => c === coord);
-    if(col > -1) {
-      return col;
-    } 
-
-    throw 'The provided letter is not a chess coordinate. Please use letters between a and h';
+    if(!this.coordinates.hasOwnProperty(coord)) {
+      throw 'The provided letter is not a chess coordinate. Please use letters between a and h';
+    }
+    return this.coordinates[coord];
   }
 
   draw() {

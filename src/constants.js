@@ -1,6 +1,6 @@
 export const BOARD = {
   SIZE: 8,
-  COORDINATES: [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' ]
+  COORDINATES: { a: 0, b: 1, c: 2, d: 3, e: 4, f: 5, g: 6, h: 7 }
 };
 
 export const SQUARE_COLOR = {
@@ -25,17 +25,17 @@ export const PIECE_TYPE = {
 export const POSITION = {
   START_FEN: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
   START: {
-    wP: ['a2', 'b2', 'c2', 'd2', 'e2', 'f2', 'g2', 'h2'],
-    wN: ['b1', 'g1'],
-    wB: ['c1', 'f1'],
-    wR: ['a1', 'h1'],
-    wQ: ['d1'],
-    wK: ['e1'],
-    bP: ['a7', 'b7', 'c7', 'd7', 'e7', 'f7', 'g7', 'h7'],
-    bN: ['b8', 'g8'],
-    bB: ['c8', 'f8'],
-    bR: ['a8', 'h8'],
-    bQ: ['d8'],
-    bK: ['e8']
+    wP: ['a1', 'b1', 'c1', 'd1', 'e1', 'f1', 'g1', 'h1'],
+    wN: ['b0', 'g0'],
+    wB: ['c0', 'f0'],
+    wR: ['a0', 'h0'],
+    wQ: ['d0'],
+    wK: ['e0'],
+    bP: ['a6', 'b6', 'c6', 'd6', 'e6', 'f6', 'g6', 'h6'],
+    bN: ['b7', 'g7'],
+    bB: ['c7', 'f7'],
+    bR: ['a7', 'h7'],
+    bQ: ['d7'],
+    bK: ['e7']
   }
 };

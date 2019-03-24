@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>Chess-JS</title>
+
+  <link rel="stylesheet" href="./src/css/styles.css">
 
   <style>
     #container {  width: 400px; height: 400px; }
@@ -21,7 +23,11 @@
   import Board from './src/Board.js';
 
   const cfg = {
-    position: 'start',
+    // position: 'start',
+    position: {
+      wK: ['h0'],
+      bK: ['a7']
+    },
     showCoordinates: true
   }
 

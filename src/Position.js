@@ -1,8 +1,11 @@
 import { POSITION } from './constants.js';
 
 export default class Position {
-  constructor(position = POSITION.START) {
-    console.log('Position creation');
+  constructor(position) {
+    if(!position || position === 'start') {
+      position = POSITION.START
+    }
+
     this.position = position
   }
 
