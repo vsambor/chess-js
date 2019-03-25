@@ -1,5 +1,7 @@
 import { SQUARE_COLOR, BOARD } from './constants.js';
 
+let activeSquare = null;
+
 export default class Square {
   constructor({ row, column, color, size }) {
     this.color = color;
@@ -9,7 +11,6 @@ export default class Square {
     this.piece = null;
     this.$el = this.__createElement();
     this.$el.onclick = this.handleClick.bind(this);
-    this.__activeSquare = null;
   }
 
   setPiece(piece) {
@@ -18,12 +19,14 @@ export default class Square {
   }
 
   handleClick() {
+    if(activeSquare) {
+      activeSquare.classList = "square";
+      activeSquare = null;
+    }
+
     if(this.piece) {
-      // if(this.__activeSquare) {
-      //   this.__activeSquare.classList = "square";
-      // }
-      // this.$el.classList = "square active";
-      // this.__activeSquare = this.$el;
+      this.$el.classList = "square active";
+      activeSquare = this.$el;
     }
   }
 
