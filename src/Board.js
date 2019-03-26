@@ -52,6 +52,7 @@ export default class Board {
         this.squares[row][column].clear();
       }
     }
+    Square.clearActive();
   }
 
   applyPosition(position) {

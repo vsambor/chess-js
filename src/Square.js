@@ -19,14 +19,18 @@ export default class Square {
   }
 
   handleClick() {
-    if(activeSquare) {
-      activeSquare.classList = "square";
-      activeSquare = null;
-    }
+    Square.clearActive();
 
     if(this.piece) {
       this.$el.classList = "square active";
       activeSquare = this.$el;
+    }
+  }
+
+  static clearActive() {
+    if(activeSquare) {
+      activeSquare.classList = "square";
+      activeSquare = null;
     }
   }
 
