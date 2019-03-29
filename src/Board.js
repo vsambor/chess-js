@@ -93,6 +93,7 @@ export default class Board {
       squares[row] = [];
       for (let column = 0; column < this.size; ++column) {
         squares[row][column] = new Square({
+          config: this.config,
           row: row,
           column: column,
           color: this.getColor(row, column),

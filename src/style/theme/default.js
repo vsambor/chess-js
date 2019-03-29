@@ -2,10 +2,7 @@ export default {
   BOARD: {
     border: 'solid 1px'
   },
-  SQUARE: {
-    lightColor: 'white',
-    darkColor: 'grey'
-  },
+  SQUARE: {},
   SQUARE_ROW_NOTATION: {
     top: '2px',
     left: '2px',

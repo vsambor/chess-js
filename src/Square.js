@@ -1,9 +1,11 @@
 import { SQUARE_COLOR, BOARD } from './constants.js';
+import {applyTheme} from './style/theme/main.js';
 
 let activeSquare = null;
 
 export default class Square {
-  constructor({ row, column, color, size }) {
+  constructor({config, row, column, color, size }) {
+    this.config = config
     this.color = color;
     this.row = row;
     this.column = column;
@@ -43,10 +45,7 @@ export default class Square {
 
   showColumnNotation() {
     const colNotation = document.createElement('div');
-    colNotation.style.position = 'absolute';
-    colNotation.style.bottom = '0px';
-    colNotation.style.right = '1px';
-    colNotation.style.fontSize = '15px';
+    applyTheme(colNotation, 'SQUARE_COL_NOTATION', this.config);
     colNotation.innerHTML = `${BOARD.COORDINATES[this.column]}`;
     
     this.$el.appendChild(colNotation);
@@ -54,10 +53,7 @@ export default class Square {
 
   showRowNotation() {
     const rowNotation = document.createElement('div');
-    rowNotation.style.position = 'absolute';
-    rowNotation.style.top = '2px';
-    rowNotation.style.left = '2px';
-    rowNotation.style.fontSize = '14px';
+    applyTheme(rowNotation, 'SQUARE_ROW_NOTATION', this.config);
     rowNotation.innerHTML = `${this.row + 1}`;
 
     this.$el.appendChild(rowNotation);
@@ -65,10 +61,7 @@ export default class Square {
   __createElement() {
     const el = document.createElement('div');
     el.className = 'square';
-    el.style.justifyContent = 'center';
-    el.style.alignItems = 'center';
-    el.style.position = 'relative';
-    el.style.display = 'flex';
+    applyTheme(el, 'SQUARE', this.config);
     el.style.backgroundColor = this.color === SQUARE_COLOR.LIGHT ? 'white' : 'grey';
 
     return el;
