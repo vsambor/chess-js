@@ -69,7 +69,6 @@ export default class Square {
     el.style.alignItems = 'center';
     el.style.position = 'relative';
     el.style.display = 'flex';
-    el.style.fontSize = '5em';
     el.style.backgroundColor = this.color === SQUARE_COLOR.LIGHT ? 'white' : 'grey';
 
     return el;
