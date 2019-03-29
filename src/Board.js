@@ -1,8 +1,7 @@
 import Square from './Square.js';
 import Position from './Position.js';
 import {BOARD, SQUARE_COLOR, DEFAULT_CFG} from './constants.js';
-import {BOARD as BOARD_THEME, applyTheme} from './style/theme/main.js';
-import {BOARD as DEFAULT_BOARD_THEME} from './style/theme/default.js';
+import {applyTheme} from './style/theme/main.js';
 import PieceFactory from './PieceFactory.js';
 
 export default class Board {
@@ -108,14 +107,10 @@ export default class Board {
     const el = document.createElement('div');
     el.className = 'board';
 
-    // Applies main theme.
-    applyTheme(el, BOARD_THEME);
-    const customTheme = (this.config.theme && this.config.theme.BOARD) || DEFAULT_BOARD_THEME;
+    // Applies main + custom|default theme.
+    applyTheme(el, 'BOARD', this.config);
 
-    // Applies the custom or default theme.
-    applyTheme(el, customTheme);
-
-    // Applies the dynamic theme.
+    // Applies dynamic theme.
     el.style.width = `${this.pxSize}px`;
     el.style.height = `${this.pxSize}px`;
 
