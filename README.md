@@ -1,1 +1,1 @@
-# chess-js
+# pure chess-js 
