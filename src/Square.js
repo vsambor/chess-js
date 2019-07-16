@@ -2,6 +2,7 @@ import { SQUARE_COLOR, BOARD } from './constants.js';
 import {applyTheme} from './style/theme/main.js';
 
 let activeSquare = null;
+let clickedPiece = null;
 
 export default class Square {
   constructor({config, row, column, color, size }) {
@@ -23,9 +24,16 @@ export default class Square {
   handleClick() {
     Square.clearActive();
 
-    if(this.piece) {
+    if (clickedPiece) {
+      clickedPiece.move([this.row, this.column]);
+    }
+
+    if (this.piece) {
       this.$el.classList = "square active";
       activeSquare = this.$el;
+      clickedPiece = this.piece;
+    } else {
+      clickedPiece = null;
     }
   }
 

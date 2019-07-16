@@ -23,6 +23,7 @@
 
 <script type="module">
   import Board from './src/Board.js';
+  import Game from './src/Game.js';
 
   const cfg = {
     container: '#container',
@@ -36,6 +37,8 @@
   const board = new Board(cfg);
   board.draw();
 
+  const game = new Game();
+
   const clearBtn = document.getElementById("clear-btn");
   const applyPositionBtn = document.getElementById("apply-position-btn");
   const applyStartingPositionBtn = document.getElementById("apply-starting-position-btn");
@@ -48,7 +51,8 @@
   applyPositionBtn.onclick = function() {
     const position = {
       wK: ['h0'],
-      bK: ['a7']
+      bK: ['a7'],
+      wQ: ['b3', 'c4', 'g6']
     }
     board.applyPosition(position);
   }

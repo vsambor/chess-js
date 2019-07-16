@@ -1,11 +1,16 @@
 import { PIECE_TYPE } from "./constants.js";
 
 export default class Piece {
-  constructor(color, type) {
+  constructor(color, type, location) {
     this.color = color;
     this.type = type;
+    this.location = location;
     this.name = this.__getName();
     this.$el = this.__createElement();
+  }
+
+  move() {
+    console.log('Piece moved');
   }
 
   __getName() {

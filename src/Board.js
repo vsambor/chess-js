@@ -65,9 +65,13 @@ export default class Board {
         let [col, row] = coord.split('')
         row = (this.size - 1) - Number(row)
         col = this.__getColumnByCoordinate(col);
-        this.squares[row][col].setPiece(new PieceFactory().createPiece(pieceName));
+        this.squares[row][col].setPiece(new PieceFactory().createPiece(pieceName, [row, col]));
       })
     }
+  }
+
+  loadGame(game) {
+    this.game = game;
   }
 
   // Flips the board with all pieces on it...
